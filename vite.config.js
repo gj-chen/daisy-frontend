@@ -1,11 +1,26 @@
 import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
-const path = require('path');
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [react()],
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, '/src') }],
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
-  plugins: [reactRefresh()],
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    host: true,
+    port: 3000,
+    strictPort: true,
+    hmr: {
+      overlay: false,
+    },
+    allowedHosts: [
+      '.replit.dev', // ✅ allow wildcard Replit domains
+    ],
+  },
 });
