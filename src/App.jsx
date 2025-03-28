@@ -4,18 +4,35 @@ import ChatInput from './components/ChatInput';
 
 function App() {
   const [messages, setMessages] = useState([
-    { sender: 'stylist', text: 'Hi! I’m Dani, your AI stylist. What are we dressing for today?' },
+    { sender: 'stylist', text: 'Hi! I’m Daisy, your AI stylist. What are we dressing for today?' },
   ]);
 
+  const [conversationState, setConversationState] = useState({
+    bodyType: null,
+    vibe: null,
+    celebs: null,
+    budget: null,
+    climate: null,
+    occasion: null
+  });
+  
   const sendMessage = async (userMessage) => {
     const newMessages = [...messages, { sender: 'user', text: userMessage }];
     setMessages(newMessages);
+
+    console.log('📤 Sending message:', {
+      message: userMessage,
+      state: conversationState
+    });
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/stylist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({
+          message: userMessage,
+          state: conversationState
+        }),
       });
 
       const data = await res.json();
