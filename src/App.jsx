@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatWindow from './components/ChatWindow';
 import ChatInput from './components/ChatInput';
 
 function App() {
-  const [messages, setMessages] = useState([
-    { sender: 'stylist', text: 'Hi! I’m Daisy, your AI stylist. What are we dressing for today?' },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   const [conversationState, setConversationState] = useState({
     bodyType: null,
@@ -15,6 +13,12 @@ function App() {
     climate: null,
     occasion: null
   });
+
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([{ sender: 'stylist', text: 'Hi! I’m Daisy, your AI stylist. What are we dressing for today?' }]);
+    }
+  }, []);
   
   const sendMessage = async (userMessage) => {
     const newMessages = [...messages, { sender: 'user', text: userMessage }];
@@ -25,12 +29,17 @@ function App() {
       state: conversationState
     });
 
+    // Filter out Daisy's initial intro message so it's not sent to OpenAI
+    const openAIMessages = newMessages.filter(
+      m => !(m.sender === 'stylist' && m.text === "Hi! I’m Daisy, your AI stylist. What are we dressing for today?")
+    );
+
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/stylist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages,
+          messages: openAIMessages,
           state: conversationState
         }),
       });
