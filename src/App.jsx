@@ -14,6 +14,8 @@ function App() {
     occasion: null
   });
 
+  const [threadId, setThreadId] = useState(null);
+
   useEffect(() => {
     if (messages.length === 0) {
       setMessages([{ sender: 'stylist', text: 'Hi! I’m Daisy, your AI stylist. What are we dressing for today?' }]);
@@ -35,19 +37,39 @@ function App() {
     );
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/stylist`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: openAIMessages,
-          state: conversationState
+          userMessage,
+          threadId
         }),
       });
 
       const data = await res.json();
       console.log('🧠 AI stylist response:', data.reply);
 
-      setMessages([...newMessages, { sender: 'stylist', text: data.reply }]);
+      // If the reply is just a JSON string and moodboard exists, don’t show it as text
+      const isValidString = typeof data.reply === 'string';
+      const parsedIsOnlyMoodboard = data.moodboard && isValidString && data.reply.trim().startsWith('{');
+
+
+      console.log("🧵 Final message being pushed:", {
+        text: parsedIsOnlyMoodboard ? '' : data.reply,
+        moodboard: data.moodboard || null
+      });
+
+      setMessages([
+        ...newMessages,
+        {
+          sender: 'stylist',
+          text: parsedIsOnlyMoodboard ? '' : data.reply,
+          moodboard: data.moodboard || null
+        }
+      ]);
+
+
+      setThreadId(data.threadId);
     } catch (err) {
       console.error('❌ Error fetching stylist response:', err);
       setMessages([...newMessages, { sender: 'stylist', text: 'Hmm... something went wrong! Try again later.' }]);
