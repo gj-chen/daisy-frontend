@@ -62,14 +62,14 @@ function App() {
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <header className="w-full border-b border-neutral-200/50 fixed top-0 z-10 bg-[#FAF9F6]">
-        <div className="max-w-screen-xl mx-auto px-8 py-6">
+        <div className="max-w-screen-xl mx-auto px-8 py-4">
           <div className="flex items-center justify-center">
             <h1 className="text-3xl font-['Bodoni_Moda'] tracking-[0.2em] text-neutral-800">DAISY</h1>
           </div>
         </div>
       </header>
       
-      <main className="min-h-screen pt-12 pb-16 bg-gradient-to-b from-[#FAF9F6] to-white">
+      <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#FAF9F6] to-white">
         <div className="container mx-auto px-4 flex flex-col items-center">
           <div className="w-full max-w-sm">
             <div className="text-center mb-6">
