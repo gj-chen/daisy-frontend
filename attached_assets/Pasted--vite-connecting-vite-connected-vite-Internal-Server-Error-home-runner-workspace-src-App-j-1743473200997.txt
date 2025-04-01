@@ -1,0 +1,54 @@
+[vite] connecting...
+[vite] connected.
+[vite] Internal Server Error
+/home/runner/workspace/src/App.jsx: Unexpected token, expected "," (14:42)
+
+  12 |     if (messages.length === 0) {
+  13 |       setMessages([
+> 14 |         { sender: 'stylist', text: 'Hi! I'm Daisy, your AI stylist. What are we dressing for today?' }
+     |                                           ^
+  15 |       ]);
+  16 |     }
+  17 |   }, []);
+    at constructor (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:360:19)
+    at JSXParserMixin.raise (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:3338:19)
+    at JSXParserMixin.unexpected (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:3358:16)
+    at JSXParserMixin.expect (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:3668:12)
+    at JSXParserMixin.parseObjectLike (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11533:14)
+    at JSXParserMixin.parseExprAtom (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11051:23)
+    at JSXParserMixin.parseExprAtom (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:6950:20)
+    at JSXParserMixin.parseExprSubscripts (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10785:23)
+    at JSXParserMixin.parseUpdate (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10770:21)
+    at JSXParserMixin.parseMaybeUnary (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10750:23)
+    at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10603:61)
+    at JSXParserMixin.parseExprOps (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10608:23)
+    at JSXParserMixin.parseMaybeConditional (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10585:23)
+    at JSXParserMixin.parseMaybeAssign (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10538:21)
+    at /home/runner/workspace/node_modules/@babel/parser/lib/index.js:10507:39
+    at JSXParserMixin.allowInAnd (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:12126:12)
+    at JSXParserMixin.parseMaybeAssignAllowIn (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10507:17)
+    at JSXParserMixin.parseExprListItem (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11885:18)
+    at JSXParserMixin.parseExprList (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11860:22)
+    at JSXParserMixin.parseArrayLike (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11767:26)
+    at JSXParserMixin.parseExprAtom (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11042:23)
+    at JSXParserMixin.parseExprAtom (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:6950:20)
+    at JSXParserMixin.parseExprSubscripts (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10785:23)
+    at JSXParserMixin.parseUpdate (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10770:21)
+    at JSXParserMixin.parseMaybeUnary (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10750:23)
+    at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10603:61)
+    at JSXParserMixin.parseExprOps (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10608:23)
+    at JSXParserMixin.parseMaybeConditional (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10585:23)
+    at JSXParserMixin.parseMaybeAssign (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10538:21)
+    at /home/runner/workspace/node_modules/@babel/parser/lib/index.js:10507:39
+    at JSXParserMixin.allowInAnd (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:12126:12)
+    at JSXParserMixin.parseMaybeAssignAllowIn (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10507:17)
+    at JSXParserMixin.parseExprListItem (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:11885:18)
+    at JSXParserMixin.parseCallExpressionArguments (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10954:22)
+    at JSXParserMixin.parseCoverCallAndAsyncArrowHead (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10888:29)
+    at JSXParserMixin.parseSubscript (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10825:19)
+    at JSXParserMixin.parseSubscripts (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10798:19)
+    at JSXParserMixin.parseExprSubscripts (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10789:17)
+    at JSXParserMixin.parseUpdate (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10770:21)
+    at JSXParserMixin.parseMaybeUnary (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10750:23)
+    at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/runner/workspace/node_modules/@babel/parser/lib/index.js:10603:61)
+    at JSXParserMixin.parseExprOps…
