@@ -19,7 +19,7 @@ export default function ChatInput({ onSend }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Tell me what you're looking for..."
-        className="w-full px-6 py-4 bg-white/5 border-0 text-white placeholder-neutral-500 focus:ring-1 focus:ring-white/20 transition-all text-sm font-['Roboto_Mono']"
+        className="w-full px-6 py-4 bg-white border border-neutral-200 text-neutral-900 placeholder-neutral-500 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all text-sm font-['Roboto_Mono'] rounded-xl"
       />
       {/* Phase 1: Placeholder for suggestions (can be dynamic later) */}
       <div className="flex flex-wrap gap-2">

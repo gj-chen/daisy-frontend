@@ -15,10 +15,10 @@ export default function MessageBubble({ sender, message, moodboard, onViewMoodbo
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-2`}>
       <div 
-        className={`px-6 py-4 max-w-[70%] ${
+        className={`px-6 py-4 max-w-[70%] rounded-2xl ${
           isUser 
-            ? 'bg-white text-black' 
-            : 'bg-neutral-900 text-white border border-white/10'
+            ? 'bg-blue-600 text-white' 
+            : 'bg-neutral-100 text-neutral-900'
         } font-['Roboto_Mono'] text-sm`}
       >
         {(!moodboard || typeof message !== 'string' || !message.trim().startsWith('{')) && (

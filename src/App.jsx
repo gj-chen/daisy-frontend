@@ -60,11 +60,11 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-black">
-      <header className="w-full border-b border-white/10 fixed top-0 z-10">
+    <div className="min-h-screen bg-white">
+      <header className="w-full border-b border-neutral-100 fixed top-0 z-10 bg-white">
         <div className="max-w-screen-xl mx-auto px-8 py-6">
           <div className="flex items-center justify-center">
-            <h1 className="text-3xl font-['Bodoni_Moda'] tracking-[0.2em] text-white">DAISY</h1>
+            <h1 className="text-3xl font-['Bodoni_Moda'] tracking-[0.2em] text-neutral-900">DAISY</h1>
           </div>
         </div>
       </header>
