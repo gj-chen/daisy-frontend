@@ -68,9 +68,19 @@ function App() {
         </div>
       </header>
 
-      <main className="min-h-screen pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
+      <main className="min-h-screen pt-24 pb-16 relative">
+        <div className="fixed inset-0 grid grid-cols-4 gap-4 p-8 opacity-5 pointer-events-none overflow-hidden">
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/autumn.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/trench.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/knit.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/suit.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/jeans_1.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/skirt.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/boots.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+          <img src="https://sheerluxe.com/sites/sheerluxe.com/files/articles/2023/09/leather.jpg" alt="Fashion" className="w-full h-64 object-cover rounded-lg" />
+        </div>
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-2xl mx-auto backdrop-blur-sm">
             <div className="text-center mb-8">
               <h2 className="font-['Bodoni_Moda'] text-4xl font-normal text-neutral-800 mb-2">
                 Style Redefined
