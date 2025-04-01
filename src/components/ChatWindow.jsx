@@ -16,7 +16,7 @@ export default function ChatWindow({ messages }) {
 
   return (
     <div className='relative'>
-      <div className='flex flex-col gap-2 overflow-y-auto h-[500px] px-4 py-6 rounded-xl bg-white'>
+      <div className='flex flex-col gap-2 overflow-y-auto h-[65vh] px-4 py-6 rounded-xl bg-transparent'>
         {messages.map((msg, idx) => {
           console.log('🧪 Rendering message:', msg);
           return (

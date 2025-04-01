@@ -69,11 +69,11 @@ function App() {
         </div>
       </header>
       
-      <main className="pt-32 pb-16">
-        <div className="max-w-screen-xl mx-auto px-8">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-['Bodoni_Moda'] text-6xl font-normal text-neutral-800 mb-8 tracking-tight">
+      <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#FAF9F6] to-white">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+          <div className="max-w-xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-['Bodoni_Moda'] text-5xl font-normal text-neutral-800 mb-4 tracking-tight">
                 Style Redefined
               </h2>
               <p className="text-neutral-500 text-sm max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
@@ -81,7 +81,7 @@ function App() {
               </p>
             </div>
             
-            <div className="bg-white rounded-2xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.1)] p-6">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] p-6 border border-neutral-100/50">
               <ChatWindow messages={messages} />
               <ChatInput onSend={sendMessage} />
             </div>
