@@ -60,11 +60,11 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-[#F8F8F8]">
-      <header className="w-full bg-white fixed top-0 z-10">
-        <div className="max-w-screen-xl mx-auto px-8 py-8">
+    <div className="min-h-screen bg-black">
+      <header className="w-full border-b border-white/10 fixed top-0 z-10">
+        <div className="max-w-screen-xl mx-auto px-8 py-6">
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-light tracking-widest text-neutral-900">DAISY</h1>
+            <h1 className="text-3xl font-['Bodoni_Moda'] tracking-[0.2em] text-white">DAISY</h1>
           </div>
         </div>
       </header>
@@ -73,11 +73,13 @@ function App() {
         <div className="max-w-screen-xl mx-auto px-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="font-['Cormorant'] text-5xl font-light text-neutral-900 mb-8 tracking-wide">
-                Personal Style Curator
+              <h2 className="font-['Bodoni_Moda'] text-7xl font-normal text-white mb-8 tracking-tight leading-none">
+                Style
+                <br />
+                Redefined
               </h2>
-              <p className="text-neutral-500 text-base max-w-lg mx-auto font-light leading-relaxed">
-                Share your preferences, and let us guide you through a curated selection of refined looks
+              <p className="text-neutral-400 text-sm max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
+                Your personal fashion curator, delivering bespoke style guidance
               </p>
             </div>
             

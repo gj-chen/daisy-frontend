@@ -17,9 +17,9 @@ export default function MessageBubble({ sender, message, moodboard, onViewMoodbo
       <div 
         className={`px-6 py-4 max-w-[70%] ${
           isUser 
-            ? 'bg-neutral-900 text-white' 
-            : 'bg-neutral-100 text-neutral-900'
-        } font-light text-sm`}
+            ? 'bg-white text-black' 
+            : 'bg-neutral-900 text-white border border-white/10'
+        } font-['Roboto_Mono'] text-sm`}
       >
         {(!moodboard || typeof message !== 'string' || !message.trim().startsWith('{')) && (
           <p>{message}</p>
