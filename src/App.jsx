@@ -60,24 +60,24 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-[#FFFBF6]">
-      <header className="w-full bg-white/50 backdrop-blur-sm border-b border-neutral-100 fixed top-0 z-10">
-        <div className="max-w-screen-xl mx-auto px-4 py-6">
+    <div className="min-h-screen bg-[#F8F8F8]">
+      <header className="w-full bg-white fixed top-0 z-10">
+        <div className="max-w-screen-xl mx-auto px-8 py-8">
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-bold text-neutral-900">Daisy</h1>
+            <h1 className="text-2xl font-light tracking-widest text-neutral-900">DAISY</h1>
           </div>
         </div>
       </header>
       
-      <main className="pt-24 pb-16">
-        <div className="max-w-screen-xl mx-auto px-4">
+      <main className="pt-32 pb-16">
+        <div className="max-w-screen-xl mx-auto px-8">
           <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-5xl font-normal text-neutral-900 mb-6">
-                Your AI Fashion Companion
+            <div className="text-center mb-16">
+              <h2 className="font-['Cormorant'] text-5xl font-light text-neutral-900 mb-8 tracking-wide">
+                Personal Style Curator
               </h2>
-              <p className="text-neutral-600 text-lg max-w-lg mx-auto">
-                Tell me about your style preferences, and I'll help curate the perfect looks for any occasion
+              <p className="text-neutral-500 text-base max-w-lg mx-auto font-light leading-relaxed">
+                Share your preferences, and let us guide you through a curated selection of refined looks
               </p>
             </div>
             
