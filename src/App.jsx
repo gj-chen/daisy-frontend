@@ -4,75 +4,48 @@ import ChatInput from './components/ChatInput';
 
 function App() {
   const [messages, setMessages] = useState([]);
-
-  const [conversationState, setConversationState] = useState({
-    bodyType: null,
-    vibe: null,
-    celebs: null,
-    budget: null,
-    climate: null,
-    occasion: null
-  });
-
   const [threadId, setThreadId] = useState(null);
 
   useEffect(() => {
     if (messages.length === 0) {
-      setMessages([{ sender: 'stylist', text: 'Hi! I’m Daisy, your AI stylist. What are we dressing for today?' }]);
+      setMessages([
+        { sender: 'stylist', text: 'Hi! I’m Daisy, your AI stylist. What are we dressing for today?' }
+      ]);
     }
   }, []);
-  
+
   const sendMessage = async (userMessage) => {
     const newMessages = [...messages, { sender: 'user', text: userMessage }];
     setMessages(newMessages);
 
-    console.log('📤 Sending message:', {
-      message: userMessage,
-      state: conversationState
-    });
-
-    // Filter out Daisy's initial intro message so it's not sent to OpenAI
-    const openAIMessages = newMessages.filter(
-      m => !(m.sender === 'stylist' && m.text === "Hi! I’m Daisy, your AI stylist. What are we dressing for today?")
-    );
+    console.log('📤 Sending message:', { userMessage, threadId });
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userMessage,
-          threadId
-        }),
+        body: JSON.stringify({ userMessage, threadId }),
       });
 
       const data = await res.json();
-      console.log('🧠 AI stylist response:', data.reply);
+      console.log('🧠 Backend response:', data);
 
-      // If the reply is just a JSON string and moodboard exists, don’t show it as text
-      const isValidString = typeof data.reply === 'string';
-      const parsedIsOnlyMoodboard = data.moodboard && isValidString && data.reply.trim().startsWith('{');
+      const stylistMessage = data.onboarding
+        ? { sender: 'stylist', text: data.message }
+        : {
+            sender: 'stylist',
+            text: '',
+            moodboard: data.moodboard,
+          };
 
-
-      console.log("🧵 Final message being pushed:", {
-        text: parsedIsOnlyMoodboard ? '' : data.reply,
-        moodboard: data.moodboard || null
-      });
-
-      setMessages([
-        ...newMessages,
-        {
-          sender: 'stylist',
-          text: parsedIsOnlyMoodboard ? '' : data.reply,
-          moodboard: data.moodboard || null
-        }
-      ]);
-
-
+      setMessages([...newMessages, stylistMessage]);
       setThreadId(data.threadId);
     } catch (err) {
       console.error('❌ Error fetching stylist response:', err);
-      setMessages([...newMessages, { sender: 'stylist', text: 'Hmm... something went wrong! Try again later.' }]);
+      setMessages([
+        ...newMessages,
+        { sender: 'stylist', text: 'Hmm... something went wrong! Try again later.' }
+      ]);
     }
   };
 
