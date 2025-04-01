@@ -5,6 +5,7 @@ import ChatInput from './components/ChatInput';
 function App() {
   const [messages, setMessages] = useState([]);
   const [threadId, setThreadId] = useState(null);
+  const [conversationQueue, setConversationQueue] = useState([]);
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -18,13 +19,17 @@ function App() {
     const newMessages = [...messages, { sender: 'user', text: userMessage }];
     setMessages(newMessages);
 
-    console.log('📤 Sending message:', { userMessage, threadId });
+    console.log('📤 Sending message:', { userMessage, threadId, conversationQueue });
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userMessage, threadId }),
+        body: JSON.stringify({
+          userMessage,
+          threadId,
+          conversationQueue,
+        }),
       });
 
       const data = await res.json();
@@ -32,14 +37,11 @@ function App() {
 
       const stylistMessage = data.onboarding
         ? { sender: 'stylist', text: data.message }
-        : {
-            sender: 'stylist',
-            text: '',
-            moodboard: data.moodboard,
-          };
+        : { sender: 'stylist', text: '', moodboard: data.moodboard };
 
-      setMessages([...newMessages, stylistMessage]);
+      setMessages((prevMessages) => [...prevMessages, stylistMessage]);
       setThreadId(data.threadId);
+      setConversationQueue(data.conversationQueue || []);
     } catch (err) {
       console.error('❌ Error fetching stylist response:', err);
       setMessages([
@@ -48,6 +50,19 @@ function App() {
       ]);
     }
   };
+
+  useEffect(() => {
+    if (conversationQueue.length > 0) {
+      const nextMessage = conversationQueue[0];
+
+      const timeoutId = setTimeout(() => {
+        setMessages((prevMessages) => [...prevMessages, { sender: 'stylist', text: nextMessage }]);
+        setConversationQueue((prevQueue) => prevQueue.slice(1));
+      }, 800);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [conversationQueue]);
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-center p-6">
