@@ -65,8 +65,8 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex flex-col items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-xl bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
         <ChatWindow messages={messages} />
         <ChatInput onSend={sendMessage} />
       </div>

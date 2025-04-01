@@ -28,7 +28,7 @@ export default function ChatInput({ onSend }) {
           onClick={() => {
             setInput("I'm dressing for a summer wedding.");
           }}
-          className="text-xs px-3 py-1 bg-gray-200 rounded-full hover:bg-gray-300"
+          className="text-xs px-3 py-1.5 bg-white/50 border border-gray-200 rounded-full hover:bg-white hover:border-indigo-200 transition-colors"
         >
           Summer wedding
         </button>
@@ -37,7 +37,7 @@ export default function ChatInput({ onSend }) {
           onClick={() => {
             setInput("I like Hailey Bieber's style.");
           }}
-          className="text-xs px-3 py-1 bg-gray-200 rounded-full hover:bg-gray-300"
+          className="text-xs px-3 py-1.5 bg-white/50 border border-gray-200 rounded-full hover:bg-white hover:border-indigo-200 transition-colors"
         >
           Hailey Bieber inspo
         </button>
