@@ -1,8 +1,17 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased text-gray-800 bg-gradient-to-br from-purple-50 to-blue-50;
+  }
+
   /* inter-regular - latin */
   @font-face {
     font-family: 'Inter';
@@ -33,33 +42,17 @@
       url('/fonts/inter-bold-webfont.woff') format('woff');
   }
 
-  /* Write your own custom base styles here */
-  h1 {
-    @apply text-3xl font-bold md:text-5xl font-primary;
+  h1, h2, h3, h4 {
+    @apply font-primary tracking-tight;
+  }
+}
+
+@layer components {
+  .chat-input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition-colors;
   }
 
-  h2 {
-    @apply text-2xl font-bold md:text-4xl font-primary;
-  }
-
-  h3 {
-    @apply text-xl font-bold md:text-3xl font-primary;
-  }
-
-  h4 {
-    @apply text-lg font-bold font-primary;
-  }
-
-  body {
-    @apply text-sm font-primary md:text-base;
-  }
-
-  .layout {
-    /* 750px */
-    /* max-width: 43.75rem; */
-
-    /* 1100px */
-    max-width: 68.75rem;
-    @apply w-11/12 mx-auto;
+  .suggestion-button {
+    @apply text-xs px-3 py-1.5 bg-white/50 border border-gray-200 rounded-full hover:bg-white hover:border-indigo-200 transition-all duration-200 hover:shadow-sm;
   }
 }
