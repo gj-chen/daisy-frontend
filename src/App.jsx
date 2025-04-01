@@ -60,13 +60,11 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-violet-50">
+    <div className="min-h-screen bg-[#FFFBF6]">
       <header className="w-full bg-white/50 backdrop-blur-sm border-b border-neutral-100 fixed top-0 z-10">
-        <div className="max-w-screen-xl mx-auto px-4 py-4">
+        <div className="max-w-screen-xl mx-auto px-4 py-6">
           <div className="flex items-center justify-center">
-            <span className="text-3xl">✨</span>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mx-2">Daisy</h1>
-            <span className="text-3xl">✨</span>
+            <h1 className="text-2xl font-bold text-neutral-900">Daisy</h1>
           </div>
         </div>
       </header>
@@ -75,17 +73,12 @@ function App() {
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="font-bold text-5xl bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-6">
-                slay your style bestie 💅
+              <h2 className="font-serif text-5xl font-normal text-neutral-900 mb-6">
+                Your AI Fashion Companion
               </h2>
               <p className="text-neutral-600 text-lg max-w-lg mx-auto">
-                spill the tea on your vibe & let's make you look iconic fr fr
+                Tell me about your style preferences, and I'll help curate the perfect looks for any occasion
               </p>
-              <div className="flex justify-center gap-4 mt-8">
-                <img src="https://i.imgur.com/xqQCkOF.jpg" alt="Bella Hadid" className="w-16 h-16 rounded-full object-cover border-2 border-violet-200" />
-                <img src="https://i.imgur.com/XPjxvVk.jpg" alt="Zendaya" className="w-16 h-16 rounded-full object-cover border-2 border-pink-200" />
-                <img src="https://i.imgur.com/q8PhQ6n.jpg" alt="Hailey Bieber" className="w-16 h-16 rounded-full object-cover border-2 border-violet-200" />
-              </div>
             </div>
             
             <div className="bg-white rounded-2xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.1)] p-6">
