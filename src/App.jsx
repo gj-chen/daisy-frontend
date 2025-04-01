@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     if (messages.length === 0) {
       setMessages([
-        { sender: 'stylist', text: "Hi! I'm Daisy, your AI stylist. What are we dressing for today?" }
+        { sender: "stylist", text: "Hi! I'm Daisy, your AI stylist. What are we dressing for today?" }
       ]);
     }
   }, []);
@@ -60,23 +60,50 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
-      <header className="w-full bg-white/80 backdrop-blur-sm border-b border-gray-100 fixed top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl">👗</span>
-            <h1 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Style AI</h1>
+    <div className="min-h-screen bg-white">
+      <header className="w-full bg-white border-b border-neutral-100 fixed top-0 z-10">
+        <div className="max-w-screen-xl mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <h1 className="text-2xl font-bold text-neutral-900">Style AI</h1>
+            </div>
+            <nav className="hidden md:flex space-x-8">
+              <a href="#how-it-works" className="text-neutral-600 hover:text-neutral-900 transition-colors">
+                How it Works
+              </a>
+              <a href="#about" className="text-neutral-600 hover:text-neutral-900 transition-colors">
+                About
+              </a>
+            </nav>
           </div>
-          <p className="text-sm text-gray-600">Your Personal AI Stylist</p>
         </div>
       </header>
       
-      <main className="pt-20 flex flex-col items-center justify-center p-4 sm:p-6">
-        <div className="w-full max-w-xl bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
-          <ChatWindow messages={messages} />
-          <ChatInput onSend={sendMessage} />
+      <main className="pt-24 pb-16">
+        <div className="max-w-screen-xl mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-neutral-900 mb-4">
+                Your Personal AI Stylist
+              </h2>
+              <p className="text-neutral-600">
+                Get personalized style recommendations backed by AI
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-2xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.1)] p-6">
+              <ChatWindow messages={messages} />
+              <ChatInput onSend={sendMessage} />
+            </div>
+          </div>
         </div>
       </main>
+
+      <footer className="border-t border-neutral-100 py-8 mt-auto">
+        <div className="max-w-screen-xl mx-auto px-4 text-center text-neutral-600">
+          <p>© {new Date().getFullYear()} Style AI. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }

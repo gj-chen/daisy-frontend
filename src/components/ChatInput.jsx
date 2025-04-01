@@ -13,13 +13,13 @@ export default function ChatInput({ onSend }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2">
+    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Ask your stylist..."
-        className="chat-input"
+        placeholder="Ask your stylist anything..."
+        className="w-full px-4 py-3 rounded-xl bg-neutral-50 border-0 placeholder-neutral-400 focus:ring-2 focus:ring-neutral-900 transition-all"
       />
       {/* Phase 1: Placeholder for suggestions (can be dynamic later) */}
       <div className="flex flex-wrap gap-2">
