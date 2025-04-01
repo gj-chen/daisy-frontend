@@ -69,7 +69,7 @@ function App() {
       </header>
 
       <main className="min-h-screen pt-24 pb-16 relative">
-        <div className="fixed inset-0 grid grid-cols-3 gap-4 p-8 opacity-5 pointer-events-none overflow-hidden">
+        <div className="fixed inset-0 grid grid-cols-3 gap-4 p-8 opacity-15 backdrop-blur-sm pointer-events-none overflow-hidden">
           <img src="https://media.sheerluxe.com/LOELadb7VxNuhkJ0EI6rG0kRA7w=/1200x0/smart/https%3A%2F%2Fsheerluxe.com%2Fsites%2Fsheerluxe%2Ffiles%2Farticles%2F2024%2F09%2Fsl-site-assets-040924-hero-thumb-fashion-moodboards.png" alt="Fashion Moodboard" className="w-full h-80 object-cover rounded-lg" />
           <img src="https://media.sheerluxe.com/i2tvRtUWNtYW5-GRR3IpoBJcfCc=/3840x0/smart/filters:no_upscale()/https%3A%2F%2Fsheerluxe.com%2Fsites%2Fsheerluxe%2Ffiles%2Farticles%2F2024%2F09%2Fsl-fashion-moodboards-040924-emma-2.png" alt="Fashion Moodboard" className="w-full h-80 object-cover rounded-lg" />
           <img src="https://media.sheerluxe.com/tP6kxK9X8cXVfaB7rp6WmZLr6ME=/3840x0/smart/filters:no_upscale()/https%3A%2F%2Fsheerluxe.com%2Fsites%2Fsheerluxe%2Ffiles%2Farticles%2F2024%2F09%2Fsl-fashion-moodboards-040924-lu.png" alt="Fashion Moodboard" className="w-full h-80 object-cover rounded-lg" />
