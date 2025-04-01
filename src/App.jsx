@@ -60,11 +60,11 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="w-full border-b border-neutral-100 fixed top-0 z-10 bg-white">
+    <div className="min-h-screen bg-[#FAF9F6]">
+      <header className="w-full border-b border-neutral-200/50 fixed top-0 z-10 bg-[#FAF9F6]">
         <div className="max-w-screen-xl mx-auto px-8 py-6">
           <div className="flex items-center justify-center">
-            <h1 className="text-3xl font-['Bodoni_Moda'] tracking-[0.2em] text-neutral-900">DAISY</h1>
+            <h1 className="text-3xl font-['Bodoni_Moda'] tracking-[0.2em] text-neutral-800">DAISY</h1>
           </div>
         </div>
       </header>
@@ -73,12 +73,12 @@ function App() {
         <div className="max-w-screen-xl mx-auto px-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="font-['Bodoni_Moda'] text-7xl font-normal text-white mb-8 tracking-tight leading-none">
+              <h2 className="font-['Bodoni_Moda'] text-6xl font-normal text-neutral-800 mb-8 tracking-tight leading-none">
                 Style
                 <br />
                 Redefined
               </h2>
-              <p className="text-neutral-400 text-sm max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
+              <p className="text-neutral-500 text-sm max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
                 Your personal fashion curator, delivering bespoke style guidance
               </p>
             </div>
