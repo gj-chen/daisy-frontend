@@ -81,7 +81,7 @@ function App() {
               </p>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] p-4 sm:p-6 border border-neutral-100/50">
+            <div className="bg-neutral-50 rounded-2xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] p-4 sm:p-6 border border-neutral-100">
               <ChatWindow messages={messages} />
               <ChatInput onSend={sendMessage} />
             </div>
