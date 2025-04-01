@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     if (messages.length === 0) {
       setMessages([
-        { sender: 'stylist', text: 'Hi! I'm Daisy, your AI stylist. What are we dressing for today?' }
+        { sender: 'stylist', text: "Hi! I'm Daisy, your AI stylist. What are we dressing for today?" }
       ]);
     }
   }, []);
