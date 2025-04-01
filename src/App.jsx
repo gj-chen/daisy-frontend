@@ -77,7 +77,7 @@ function App() {
           </div>
         </div>
         <div className="fixed right-0 top-0 bottom-0 w-1/4 pointer-events-none overflow-hidden opacity-15">
-          <div className="grid grid-cols-1 gap-4 p-4">
+          <div className="grid grid-cols-1 gap-4 pt-4 pr-0">
             <img src="https://media.sheerluxe.com/0h4k3irK00_M0Dzz282Kwqpx47U=/3840x0/smart/filters:no_upscale()/https%3A%2F%2Fsheerluxe.com%2Fsites%2Fsheerluxe%2Ffiles%2Farticles%2F2024%2F09%2Fsl-fashion-moodboards-040924-nana.png" alt="Moodboard" className="w-full h-auto object-cover rounded-lg" />
             <img src="https://media.sheerluxe.com/prcFGU-NZDpN0wogKRTQNYb4drM=/3840x0/smart/filters:no_upscale()/https%3A%2F%2Fsheerluxe.com%2Fsites%2Fsheerluxe%2Ffiles%2Farticles%2F2024%2F09%2Fsl-fashion-moodboards-040924-sapna.png" alt="Moodboard" className="w-full h-auto object-cover rounded-lg" />
             <img src="https://media.sheerluxe.com/rj8iy-klo4jdG6Mdl9bUdtol3sY=/3840x0/smart/filters:no_upscale()/https%3A%2F%2Fsheerluxe.com%2Fsites%2Fsheerluxe%2Ffiles%2Farticles%2F2024%2F09%2Fsl-fashion-moodboards-040924-florence.png" alt="Moodboard" className="w-full h-auto object-cover rounded-lg" />
