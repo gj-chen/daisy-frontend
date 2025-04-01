@@ -18,8 +18,8 @@ export default function ChatInput({ onSend }) {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Ask your stylist anything..."
-        className="w-full px-4 py-3 rounded-xl bg-neutral-50 border-0 placeholder-neutral-400 focus:ring-2 focus:ring-neutral-900 transition-all"
+        placeholder="Tell me what you're looking for..."
+        className="w-full px-6 py-4 rounded-2xl bg-white border border-neutral-100 placeholder-neutral-400 focus:ring-2 focus:ring-neutral-200 focus:border-neutral-300 transition-all text-lg"
       />
       {/* Phase 1: Placeholder for suggestions (can be dynamic later) */}
       <div className="flex flex-wrap gap-2">

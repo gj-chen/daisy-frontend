@@ -3,21 +3,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap');
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply antialiased text-gray-800 bg-white;
+    @apply antialiased text-gray-800 bg-[#FFFBF6];
   }
 
   h1 {
-    @apply text-4xl md:text-5xl font-bold;
+    @apply text-4xl md:text-5xl;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-semibold;
+    font-family: 'Playfair Display', serif;
+    @apply text-3xl md:text-4xl;
   }
 
   /* inter-regular - latin */

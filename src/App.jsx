@@ -60,21 +60,11 @@ function App() {
   }, [conversationQueue]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="w-full bg-white border-b border-neutral-100 fixed top-0 z-10">
+    <div className="min-h-screen bg-[#FFFBF6]">
+      <header className="w-full bg-white/50 backdrop-blur-sm border-b border-neutral-100 fixed top-0 z-10">
         <div className="max-w-screen-xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <h1 className="text-2xl font-bold text-neutral-900">Style AI</h1>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#how-it-works" className="text-neutral-600 hover:text-neutral-900 transition-colors">
-                How it Works
-              </a>
-              <a href="#about" className="text-neutral-600 hover:text-neutral-900 transition-colors">
-                About
-              </a>
-            </nav>
+          <div className="flex items-center justify-center">
+            <h1 className="text-2xl font-bold text-neutral-900">Daisy</h1>
           </div>
         </div>
       </header>
@@ -83,11 +73,11 @@ function App() {
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-neutral-900 mb-4">
-                Your Personal AI Stylist
+              <h2 className="font-serif text-5xl font-normal text-neutral-900 mb-6">
+                Your AI Fashion Companion
               </h2>
-              <p className="text-neutral-600">
-                Get personalized style recommendations backed by AI
+              <p className="text-neutral-600 text-lg max-w-lg mx-auto">
+                Tell me about your style preferences, and I'll help curate the perfect looks for any occasion
               </p>
             </div>
             
