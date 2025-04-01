@@ -69,14 +69,14 @@ function App() {
         </div>
       </header>
       
-      <main className="min-h-screen pt-16 pb-16 bg-gradient-to-b from-[#FAF9F6] to-white">
+      <main className="min-h-screen pt-12 pb-16 bg-gradient-to-b from-[#FAF9F6] to-white">
         <div className="container mx-auto px-4 flex flex-col items-center">
-          <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <h2 className="font-['Bodoni_Moda'] text-5xl font-normal text-neutral-800 mb-4 tracking-tight">
+          <div className="w-full max-w-sm">
+            <div className="text-center mb-6">
+              <h2 className="font-['Bodoni_Moda'] text-4xl font-normal text-neutral-800 mb-2 tracking-tight">
                 Style Redefined
               </h2>
-              <p className="text-neutral-500 text-sm max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
+              <p className="text-neutral-500 text-xs max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
                 Your personal fashion curator, delivering bespoke style guidance
               </p>
             </div>
