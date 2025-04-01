@@ -73,10 +73,8 @@ function App() {
         <div className="max-w-screen-xl mx-auto px-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="font-['Bodoni_Moda'] text-6xl font-normal text-neutral-800 mb-8 tracking-tight leading-none">
-                Style
-                <br />
-                Redefined
+              <h2 className="font-['Bodoni_Moda'] text-6xl font-normal text-neutral-800 mb-8 tracking-tight">
+                Style Redefined
               </h2>
               <p className="text-neutral-500 text-sm max-w-lg mx-auto font-['Roboto_Mono'] tracking-wide uppercase">
                 Your personal fashion curator, delivering bespoke style guidance
