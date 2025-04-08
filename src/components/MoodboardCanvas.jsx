@@ -1,37 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const MoodboardCanvas = ({ imageUrls, onFeedback }) => {
-  const handleFeedback = (index, liked) => {
-    const label = liked ? 'loved' : 'didn’t like';
-    const feedbackText = `I ${label} the look in image ${index + 1}`;
-    onFeedback(feedbackText);
+const MoodboardCanvas = ({ imageUrls = [], onFeedback, onGenerateMoodboard }) => {
+  const [selected, setSelected] = useState([]);
+  const [includeGuide, setIncludeGuide] = useState(false);
+
+  const toggleSelect = (url) => {
+    setSelected((prev) =>
+      prev.includes(url) ? prev.filter((u) => u !== url) : [...prev, url]
+    );
   };
 
-  if (!imageUrls || imageUrls.length === 0) {
-    return null;
-  }
-
   return (
-    <div>
-      <h2 className="text-lg font-medium mb-4">Your Moodboard</h2>
+    <div className="flex flex-col gap-4">
+      {/* Image Grid */}
       <div className="grid grid-cols-2 gap-4">
-        {imageUrls.map((url, i) => (
-          <div key={i} className="relative group">
+        {imageUrls.map((img, index) => (
+          <div
+            key={index}
+            className={`relative group rounded overflow-hidden shadow border cursor-pointer ${
+              selected.includes(img.url) ? 'ring-4 ring-black/70' : ''
+            }`}
+            onClick={() => toggleSelect(img.url)}
+          >
             <img
-              src={url}
-              alt={`moodboard ${i}`}
-              className="w-full rounded-xl shadow-md"
+              src={img.url}
+              alt={`Moodboard ${index + 1}`}
+              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+
+            {/* Explanation overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-60 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex items-center justify-center text-sm text-center">
+              <p>{img.explanation}</p>
+            </div>
+
+            {/* Feedback buttons */}
+            <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <button
-                onClick={() => handleFeedback(i, true)}
-                className="p-1 rounded-full bg-white shadow hover:bg-green-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onFeedback(`I liked image ${index + 1}`);
+                }}
+                className="bg-white text-black px-2 py-1 text-xs rounded hover:bg-green-200"
               >
                 ❤️
               </button>
               <button
-                onClick={() => handleFeedback(i, false)}
-                className="p-1 rounded-full bg-white shadow hover:bg-red-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onFeedback(`I didn’t like image ${index + 1}`);
+                }}
+                className="bg-white text-black px-2 py-1 text-xs rounded hover:bg-red-200"
               >
                 ✖️
               </button>
@@ -39,6 +57,42 @@ const MoodboardCanvas = ({ imageUrls, onFeedback }) => {
           </div>
         ))}
       </div>
+
+      {/* Generate moodboard panel */}
+      {imageUrls.length > 0 && (
+        <div className="flex flex-col gap-2 mt-4 border-t pt-4">
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={includeGuide}
+              onChange={(e) => setIncludeGuide(e.target.checked)}
+            />
+            Include styling guide?
+          </label>
+          <button
+            disabled={selected.length === 0}
+            onClick={() => onGenerateMoodboard(selected, includeGuide)}
+            className="bg-black text-white py-2 px-4 rounded disabled:opacity-50"
+          >
+            Generate Final Moodboard
+          </button>
+          {/* New Buttons for Directional Control */}
+          <div className="flex flex-col gap-2 mt-2">
+            <button
+              onClick={() => onFeedback("Can you refine this direction?")}
+              className="bg-white text-black border border-gray-300 py-2 px-4 rounded hover:bg-gray-100"
+            >
+              🔁 Refine This Direction
+            </button>
+            <button
+              onClick={() => onFeedback("Show me another direction for the same goal.")}
+              className="bg-white text-black border border-gray-300 py-2 px-4 rounded hover:bg-gray-100"
+            >
+              🎨 Try Another Look
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

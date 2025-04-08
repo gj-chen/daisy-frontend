@@ -13,9 +13,9 @@ const ChatPage = () => {
   const [imageUrls, setImageUrls] = useState([]);
 
   return (
-    <div className="flex flex-row min-h-[75vh] border border-gray-200 rounded-xl shadow overflow-hidden">
-      {/* Left Pane: Chat */}
-      <div className="w-1/2 border-r border-gray-200 flex flex-col bg-white">
+    <div className="flex flex-row h-[85vh] border border-gray-200 rounded-xl shadow overflow-hidden">
+      {/* Chat Pane */}
+      <div className="w-1/2 flex flex-col border-r border-gray-200 bg-white">
         <div className="flex-1 overflow-y-auto p-6">
           <ChatWindow messages={messages} />
         </div>
@@ -24,11 +24,38 @@ const ChatPage = () => {
         </div>
       </div>
 
-      {/* Right Pane: Moodboard */}
-      <div className="w-1/2 p-6 overflow-y-auto bg-[#FCFBFA]">
-        <MoodboardCanvas imageUrls={imageUrls} onFeedback={(feedbackText) => {
-          setMessages(prev => [...prev, { role: 'user', text: feedbackText }]);
-        }} />
+      {/* Moodboard Pane */}
+      <div className="w-1/2 flex flex-col bg-[#FCFBFA]">
+        <div className="flex-1 overflow-y-auto p-6">
+          <MoodboardCanvas
+            imageUrls={imageUrls}
+            onFeedback={(feedbackText) => {
+              // Send silent message to backend
+              fetch('https://your-backend-url/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: feedbackText })
+              });
+            }}
+            onGenerateMoodboard={async (selectedUrls, includeGuide) => {
+              try {
+                const res = await fetch('https://d9247149-d0ef-4e4b-b2ec-ae1b7b65a41a-00-2tah3vnbw8aih.spock.replit.dev/final-moodboard', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    imageUrls: selectedUrls,
+                    includeStylingGuide: includeGuide
+                  })
+                });
+                const data = await res.json();
+                setMessages((prev) => [...prev, { role: 'assistant', text: data.response }]);
+              } catch (e) {
+                setMessages((prev) => [...prev, { role: 'assistant', text: '[Error generating moodboard]' }]);
+              }
+            }}
+          />
+
+        </div>
       </div>
     </div>
   );

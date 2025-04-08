@@ -19,18 +19,29 @@ const ChatInput = ({ setMessages, setImageUrls }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userText })
       });
-
+      
+      if (!res.ok) throw new Error("Daisy backend returned a non-200 response");
+      
       const data = await res.json();
-      const daisyReply = data.message || '[No response]';
 
-      setMessages(prev => [...prev, { role: 'daisy', text: daisyReply }]);
-
-      if (data.moodboard?.imageUrls?.length > 0) {
-        setImageUrls(data.moodboard.imageUrls);
+      if (data.messages && Array.isArray(data.messages)) {
+        setMessages(prev => [
+          ...prev,
+          ...data.messages.map(m => ({ role: 'assistant', text: m.text }))
+        ]);
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', text: '[No reply from Daisy]' }]);
       }
+
+      // ✅ Render the moodboard if image URLs are included
+      if (data.moodboard && Array.isArray(data.moodboard.images)){
+        setImageUrls(data.moodboard.images);
+      }
+
+
     } catch (err) {
       console.error('Error talking to Daisy:', err);
-      setMessages(prev => [...prev, { role: 'daisy', text: '[Something went wrong]' }]);
+      setMessages(prev => [...prev, { role: 'assistant', text: '[Something went wrong]' }]);
     } finally {
       setLoading(false);
     }
@@ -38,20 +49,25 @@ const ChatInput = ({ setMessages, setImageUrls }) => {
 
   return (
     <div className="flex items-center gap-2">
-      <input
-        className="flex-1 border rounded-xl px-4 py-2 text-sm outline-none"
-        placeholder="Let’s talk style. Describe your vibe..."
+      <textarea
+        className="flex-1 border rounded-xl px-4 py-2 text-sm outline-none resize-none leading-snug min-h-[40px] max-h-[120px] overflow-y-auto"
+        placeholder={loading ? "Thinking..." : "Let’s talk style. Describe your vibe..."}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         disabled={loading}
-        onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit();
+          }
+        }}
       />
       <button
+        className="bg-black text-white px-4 py-2 rounded-xl text-sm"
         onClick={handleSubmit}
         disabled={loading}
-        className="text-sm px-3 py-2 rounded-xl bg-black text-white hover:bg-gray-900 transition"
       >
-        {loading ? 'Thinking…' : 'Send'}
+        {loading ? "..." : "Send"}
       </button>
     </div>
   );
