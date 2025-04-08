@@ -1,47 +1,60 @@
 import React, { useState } from 'react';
 
-export default function ChatInput({ onSend }) {
+const ChatInput = ({ setMessages, setImageUrls }) => {
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (!input.trim()) return;
 
-    console.log('📤 Sending message:', input);
-    onSend(input);
+    const userText = input.trim();
+    setLoading(true);
     setInput('');
+
+    setMessages(prev => [...prev, { role: 'user', text: userText }]);
+
+    try {
+      const res = await fetch('https://d9247149-d0ef-4e4b-b2ec-ae1b7b65a41a-00-2tah3vnbw8aih.spock.replit.dev/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userText })
+      });
+
+      const data = await res.json();
+      const daisyReply = data.message || '[No response]';
+
+      setMessages(prev => [...prev, { role: 'daisy', text: daisyReply }]);
+
+      if (data.moodboard?.imageUrls?.length > 0) {
+        setImageUrls(data.moodboard.imageUrls);
+      }
+    } catch (err) {
+      console.error('Error talking to Daisy:', err);
+      setMessages(prev => [...prev, { role: 'daisy', text: '[Something went wrong]' }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+    <div className="flex items-center gap-2">
       <input
-        type="text"
+        className="flex-1 border rounded-xl px-4 py-2 text-sm outline-none"
+        placeholder="Let’s talk style. Describe your vibe..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Tell me what you're looking for..."
-        className="w-full px-6 py-4 bg-white border-0 text-neutral-800 placeholder-neutral-400 focus:ring-1 focus:ring-neutral-200 transition-all text-sm font-['Roboto_Mono'] shadow-sm"
+        disabled={loading}
+        onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
       />
-      {/* Phase 1: Placeholder for suggestions (can be dynamic later) */}
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => {
-            setInput("I'm dressing for a summer wedding.");
-          }}
-          className="text-xs px-3 py-1.5 bg-white/50 border border-gray-200 rounded-full hover:bg-white hover:border-indigo-200 transition-colors"
-        >
-          Summer wedding
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setInput("I like Hailey Bieber's style.");
-          }}
-          className="text-xs px-3 py-1.5 bg-white/50 border border-gray-200 rounded-full hover:bg-white hover:border-indigo-200 transition-colors"
-        >
-          Hailey Bieber inspo
-        </button>
-      </div>
-    </form>
+      <button
+        onClick={handleSubmit}
+        disabled={loading}
+        className="text-sm px-3 py-2 rounded-xl bg-black text-white hover:bg-gray-900 transition"
+      >
+        {loading ? 'Thinking…' : 'Send'}
+      </button>
+    </div>
   );
-}
+};
+
+export default ChatInput;
