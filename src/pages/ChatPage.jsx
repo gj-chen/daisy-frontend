@@ -19,10 +19,12 @@ const ChatPage = () => {
   const [finalData, setFinalData] = useState({ summary: '', rationales: [] });
   const [showModal, setShowModal] = useState(false);
   const [daisyThinking, setDaisyThinking] = useState(false);
+  const [toolUsed, setToolUsed] = useState(false);
   const FEEDBACK_THRESHOLD = 3;
 
   const sendMessage = async (text) => {
     setDaisyThinking(true);
+    setToolUsed(false);
     setMessages((prev) => [...prev, { role: 'user', text }]);
 
     const res = await fetch('https://d9247149-d0ef-4e4b-b2ec-ae1b7b65a41a-00-2tah3vnbw8aih.spock.replit.dev/chat', {
@@ -36,9 +38,11 @@ const ChatPage = () => {
 
     if (data.messages) {
       setMessages((prev) => [...prev, ...data.messages]);
-      if (data.toolUsed) {
-        setMessages(prev => [...prev, { role: 'system', text: "Daisy is curating looks just for you..." }]);
-      }
+    }
+
+    if (data.toolUsed) {
+      setToolUsed(true);
+      setMessages(prev => [...prev, { role: 'system', text: "Daisy is curating your moodboard..." }]);
     }
 
     if (data.moodboard?.images) {
@@ -99,7 +103,7 @@ const ChatPage = () => {
           <div className="flex-1 overflow-y-auto p-6">
             <ChatWindow messages={messages} />
             <div ref={chatEndRef} />
-            {daisyThinking && (
+            {daisyThinking && !toolUsed && (
               <div className="text-xs text-gray-400 mt-1 ml-1">Daisy is thinking…</div>
             )}
           </div>
