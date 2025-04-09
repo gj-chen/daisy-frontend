@@ -21,11 +21,11 @@ const MoodboardCanvas = ({
   };
 
   const handleRefineClick = () => {
-    onSendMessage("Refine this direction");
+    onSendMessage("Refine this direction", 'refine'); // ✅ add actionType
   };
 
   const handleTryAnotherClick = () => {
-    onSendMessage("Try another look");
+    onSendMessage("Try another look", 'regenerate'); // ✅ add actionType
   };
 
   return (
