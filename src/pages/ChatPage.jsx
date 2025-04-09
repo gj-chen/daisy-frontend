@@ -11,11 +11,15 @@ const ChatPage = () => {
     }
   ]);
   const [imageUrls, setImageUrls] = useState([]);
+  const [feedbackState, setFeedbackState] = useState({}); // url -> like/dislike
+  const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
+  const FEEDBACK_THRESHOLD = 3;
 
   const sendMessage = async (text) => {
     setMessages((prev) => [...prev, { role: 'user', text }]);
 
-    const res = await fetch('https://d9247149-d0ef-4e4b-b2ec-ae1b7b65a41a-00-2tah3vnbw8aih.spock.replit.dev/chat', {
+    const res = await fetch('http://localhost:5000/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text, userId: 'demo-user' }),
@@ -29,11 +33,14 @@ const ChatPage = () => {
 
     if (data.moodboard?.images) {
       setImageUrls(data.moodboard.images);
+      setFeedbackState({});
+      setLikeCount(0);
+      setDislikeCount(0);
     }
   };
 
   const handleFinalMoodboard = async (selected, includeGuide) => {
-    const res = await fetch('https://d9247149-d0ef-4e4b-b2ec-ae1b7b65a41a-00-2tah3vnbw8aih.spock.replit.dev/final-moodboard', {
+    const res = await fetch('http://localhost:5000/final-moodboard', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -49,12 +56,28 @@ const ChatPage = () => {
   };
 
   const handleImageFeedback = (imageUrl, type) => {
-    console.log(`Feedback: ${type} on ${imageUrl}`);
+    setFeedbackState((prev) => {
+      const prevType = prev[imageUrl];
+      const updated = { ...prev, [imageUrl]: prev[imageUrl] === type ? null : type };
+
+      // Update counters
+      const newLikes = Object.values(updated).filter(v => v === 'like').length;
+      const newDislikes = Object.values(updated).filter(v => v === 'dislike').length;
+      setLikeCount(newLikes);
+      setDislikeCount(newDislikes);
+
+      // Auto-refine after threshold
+      if (newDislikes >= FEEDBACK_THRESHOLD) {
+        setMessages(prev => [...prev, { role: 'daisy', text: "Sounds like we need a shift — let me rethink the vibe." }]);
+        sendMessage("Refine this direction based on my dislikes");
+      }
+
+      return updated;
+    });
   };
 
   return (
     <div className="flex flex-row h-[85vh] border border-gray-200 rounded-xl shadow overflow-hidden">
-      {/* Chat Pane */}
       <div className="w-1/2 flex flex-col border-r border-gray-200 bg-white">
         <div className="flex-1 overflow-y-auto p-6">
           <ChatWindow messages={messages} />
@@ -64,13 +87,13 @@ const ChatPage = () => {
         </div>
       </div>
 
-      {/* Moodboard Pane */}
       <div className="w-1/2 bg-gray-50 overflow-y-auto p-4">
         <MoodboardCanvas
           imageUrls={imageUrls}
           onSendMessage={sendMessage}
           onGenerateMoodboard={handleFinalMoodboard}
           onFeedback={handleImageFeedback}
+          feedbackState={feedbackState}
         />
       </div>
     </div>
