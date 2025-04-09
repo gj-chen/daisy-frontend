@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 
-const MoodboardCanvas = ({ imageUrls = [], onFeedback, onGenerateMoodboard }) => {
+const MoodboardCanvas = ({
+  imageUrls = [],
+  onFeedback,
+  onGenerateMoodboard,
+  onSendMessage
+}) => {
   const [selected, setSelected] = useState([]);
   const [includeGuide, setIncludeGuide] = useState(false);
+  const [feedbackState, setFeedbackState] = useState({});
 
   const toggleSelect = (url) => {
     setSelected((prev) =>
@@ -10,58 +16,71 @@ const MoodboardCanvas = ({ imageUrls = [], onFeedback, onGenerateMoodboard }) =>
     );
   };
 
+  const handleFeedback = (url, type) => {
+    if (onFeedback) onFeedback(url, type);
+    setFeedbackState((prev) => ({ ...prev, [url]: type }));
+  };
+
+  const handleRefineClick = () => {
+    onSendMessage("Refine this direction");
+  };
+
+  const handleTryAnotherClick = () => {
+    onSendMessage("Try another look");
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* Image Grid */}
       <div className="grid grid-cols-2 gap-4">
-        {imageUrls.map((img, index) => (
-          <div
-            key={index}
-            className={`relative group rounded overflow-hidden shadow border cursor-pointer ${
-              selected.includes(img.url) ? 'ring-4 ring-black/70' : ''
-            }`}
-            onClick={() => toggleSelect(img.url)}
-          >
-            <img
-              src={img.url}
-              alt={`Moodboard ${index + 1}`}
-              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-
-            {/* Explanation overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-60 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex items-center justify-center text-sm text-center">
-              <p>{img.explanation}</p>
+        {imageUrls.map((img, index) => {
+          const feedback = feedbackState[img.url];
+          return (
+            <div
+              key={index}
+              className={`relative group rounded overflow-hidden shadow border cursor-pointer ${
+                selected.includes(img.url) ? 'ring-4 ring-black/70' : ''
+              }`}
+              onClick={() => toggleSelect(img.url)}
+            >
+              <img
+                src={img.url}
+                alt={`Moodboard ${index + 1}`}
+                className="w-full h-auto object-cover transition-transform duration-200 group-hover:scale-105"
+              />
+              {/* Rationale hover */}
+              <div className="absolute top-0 left-0 w-full h-full bg-black/60 text-white opacity-0 group-hover:opacity-100 p-2 text-sm flex items-center justify-center text-center">
+                {img.rationale || 'No stylist rationale yet.'}
+              </div>
+              {/* Feedback buttons */}
+              <div className="absolute bottom-2 right-2 flex gap-2">
+                <button
+                  className={feedback === 'like' ? 'opacity-50' : ''}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFeedback(img.url, 'like');
+                  }}
+                >
+                  ❤️
+                </button>
+                <button
+                  className={feedback === 'dislike' ? 'opacity-50' : ''}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFeedback(img.url, 'dislike');
+                  }}
+                >
+                  ✖️
+                </button>
+              </div>
             </div>
-
-            {/* Feedback buttons */}
-            <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onFeedback(`I liked image ${index + 1}`);
-                }}
-                className="bg-white text-black px-2 py-1 text-xs rounded hover:bg-green-200"
-              >
-                ❤️
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onFeedback(`I didn’t like image ${index + 1}`);
-                }}
-                className="bg-white text-black px-2 py-1 text-xs rounded hover:bg-red-200"
-              >
-                ✖️
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Generate moodboard panel */}
       {imageUrls.length > 0 && (
-        <div className="flex flex-col gap-2 mt-4 border-t pt-4">
-          <label className="flex items-center gap-2 text-sm">
+        <>
+          <label className="flex items-center gap-2 text-sm mt-2">
             <input
               type="checkbox"
               checked={includeGuide}
@@ -69,29 +88,29 @@ const MoodboardCanvas = ({ imageUrls = [], onFeedback, onGenerateMoodboard }) =>
             />
             Include styling guide?
           </label>
+
           <button
-            disabled={selected.length === 0}
+            className="bg-black text-white px-4 py-2 rounded shadow hover:bg-gray-800"
             onClick={() => onGenerateMoodboard(selected, includeGuide)}
-            className="bg-black text-white py-2 px-4 rounded disabled:opacity-50"
           >
             Generate Final Moodboard
           </button>
-          {/* New Buttons for Directional Control */}
-          <div className="flex flex-col gap-2 mt-2">
+
+          <div className="flex gap-2 justify-center">
             <button
-              onClick={() => onFeedback("Can you refine this direction?")}
-              className="bg-white text-black border border-gray-300 py-2 px-4 rounded hover:bg-gray-100"
+              className="text-sm px-3 py-1 rounded border border-gray-400 hover:bg-gray-100"
+              onClick={handleRefineClick}
             >
               🔁 Refine This Direction
             </button>
             <button
-              onClick={() => onFeedback("Show me another direction for the same goal.")}
-              className="bg-white text-black border border-gray-300 py-2 px-4 rounded hover:bg-gray-100"
+              className="text-sm px-3 py-1 rounded border border-gray-400 hover:bg-gray-100"
+              onClick={handleTryAnotherClick}
             >
-              🎨 Try Another Look
+              🍂 Try Another Look
             </button>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
