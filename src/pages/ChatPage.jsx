@@ -25,10 +25,10 @@ const ChatPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [daisyThinking, setDaisyThinking] = useState(false);
   const [toolUsed, setToolUsed] = useState(false);
+  const [feedbackRefining, setFeedbackRefining] = useState(false);
 
   const FEEDBACK_THRESHOLD = 3;
   const lastDaisyMessageRef = useRef(null);
-
   const showCTAs = imageUrls.length > 0;
 
   const sendMessage = async (text, actionType = null) => {
@@ -38,16 +38,14 @@ const ChatPage = () => {
     setToolUsed(false);
     setMessages((prev) => [...prev, { role: 'user', text }]);
 
+    if (text.toLowerCase().includes("refine based on feedback")) {
+      setFeedbackRefining(true);
+    }
+
     if (actionType === 'refine') {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'system', text: 'Daisy is refining your moodboard...' }
-      ]);
+      setMessages((prev) => [...prev, { role: 'system', text: 'Daisy is refining your moodboard...' }]);
     } else if (actionType === 'regenerate') {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'system', text: 'Daisy is generating a new look...' }
-      ]);
+      setMessages((prev) => [...prev, { role: 'system', text: 'Daisy is generating a new look...' }]);
     }
 
     const res = await fetch(`${BACKEND_URL}/chat`, {
@@ -77,6 +75,36 @@ const ChatPage = () => {
       setLikeCount(0);
       setDislikeCount(0);
     }
+
+    setFeedbackRefining(false);
+  };
+
+  const handleImageFeedback = (imageUrl, type) => {
+    const updated = {
+      ...feedbackState,
+      [imageUrl]: feedbackState[imageUrl] === type ? null : type
+    };
+    setFeedbackState(updated);
+
+    const newLikes = Object.values(updated).filter(v => v === 'like').length;
+    const newDislikes = Object.values(updated).filter(v => v === 'dislike').length;
+    setLikeCount(newLikes);
+    setDislikeCount(newDislikes);
+
+    fetch(`${BACKEND_URL}/feedback`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId: 'demo-user',
+        imageUrl,
+        value: type
+      })
+    }).catch((err) => console.error('Feedback error:', err));
+
+    if (newDislikes >= FEEDBACK_THRESHOLD) {
+      setMessages(prev => [...prev, { role: 'daisy', text: "Sounds like we need a shift — let me rethink the vibe." }]);
+      sendMessage("Refine this direction based on my dislikes", 'refine');
+    }
   };
 
   const handleFinalMoodboard = async (selected, includeGuide) => {
@@ -97,25 +125,6 @@ const ChatPage = () => {
     }
   };
 
-  const handleImageFeedback = (imageUrl, type) => {
-    setFeedbackState((prev) => {
-      const prevType = prev[imageUrl];
-      const updated = { ...prev, [imageUrl]: prev[imageUrl] === type ? null : type };
-
-      const newLikes = Object.values(updated).filter(v => v === 'like').length;
-      const newDislikes = Object.values(updated).filter(v => v === 'dislike').length;
-      setLikeCount(newLikes);
-      setDislikeCount(newDislikes);
-
-      if (newDislikes >= FEEDBACK_THRESHOLD) {
-        setMessages(prev => [...prev, { role: 'daisy', text: "Sounds like we need a shift — let me rethink the vibe." }]);
-        sendMessage("Refine this direction based on my dislikes", 'refine');
-      }
-
-      return updated;
-    });
-  };
-
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -134,6 +143,11 @@ const ChatPage = () => {
             )}
             {daisyThinking && toolUsed && (
               <div className="text-xs text-purple-400 mt-1 ml-1">Daisy is curating your moodboard…</div>
+            )}
+            {feedbackRefining && (
+              <div className="text-xs text-purple-500 italic mt-2 ml-1">
+                Daisy is refining based on what you liked…
+              </div>
             )}
             <CTAButtons
               onSend={sendMessage}
